@@ -1,4 +1,6 @@
 ﻿using Brito.Sergio.Backend.Acl;
+using Brito.Sergio.Backend.Domain;
+using Brito.Sergio.Backend.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,19 +11,18 @@ namespace Brito.Sergio.Backend.Api.Controllers
     [ApiController]
     public class InvestimentoController : ControllerBase
     {
-        private readonly IInvestimentosAcl _tesouroDiretoAcl; //TROCAR POR SERVIÇO COM BUILDER
-        public InvestimentoController(IInvestimentosAcl tesouroDiretoAcl)
+        private readonly IInvestimentoService _investimentoService;
+        public InvestimentoController(IInvestimentoService investimentoService)
         {
-            _tesouroDiretoAcl = tesouroDiretoAcl;
+            _investimentoService = investimentoService;
         }
 
        [HttpGet]
        [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<Domain.Investimento>>> ObterInvestimentos()
+        public  async Task<ActionResult<InvestimentoConsolidado>> ObterInvestimentos()
         {
-
-            var investimentos = await _tesouroDiretoAcl.ObterListaInvestimentos();
-            return Ok(investimentos);
+            var investimentoConsolidado =   await _investimentoService.ObterInvestimentoConsolidado();
+            return Ok(investimentoConsolidado);
         }
 
 

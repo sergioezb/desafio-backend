@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Brito.Sergio.Backend.Acl\Brito.Sergio.Backend.Acl.csproj" />
+    <ProjectReference Include="..\Brito.Sergio.Backend.Service\Brito.Sergio.Backend.Service.csproj" />
   </ItemGroup>
 
 

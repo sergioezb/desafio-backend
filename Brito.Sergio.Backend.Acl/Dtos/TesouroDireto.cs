@@ -8,7 +8,7 @@ namespace Brito.Sergio.Backend.Acl.Dtos
         public decimal ValorTotal { get; set; }
         public DateTime Vencimento { get; set; }
         public DateTime DataDeCompra { get; set; }
-        public int Iof { get; set; }
+        public decimal Iof { get; set; }
         public string Indice { get; set; }
         public string Tipo { get; set; }
         public string Nome { get; set; }

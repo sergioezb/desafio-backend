@@ -1,4 +1,5 @@
-﻿using Brito.Sergio.Backend.Acl.Dtos;
+﻿using AutoMapper;
+using Brito.Sergio.Backend.Acl.Dtos;
 using Brito.Sergio.Backend.Domain;
 using Flurl.Http;
 using Microsoft.Extensions.Configuration;
@@ -9,11 +10,12 @@ namespace Brito.Sergio.Backend.Acl
 {
     public class RendaFixaAcl : IInvestimentosAcl
     {
-
+        private readonly IMapper _mapper;
         private readonly string _endpoint;
 
-        public RendaFixaAcl(IConfiguration configuration)
+        public RendaFixaAcl(IConfiguration configuration, IMapper mapper)
         {
+            _mapper = mapper;
             _endpoint = configuration.GetSection("Endpoints:Renda.Fixa").Value;
         }
 
@@ -24,7 +26,9 @@ namespace Brito.Sergio.Backend.Acl
                                  .GetAsync()
                                  .ReceiveJson<ConsultaRendaFixa>();
 
-            return new List<Investimento>();
+            var investimentos = _mapper.Map<IEnumerable<Investimento>>(retorno.LCIS);
+
+            return investimentos;
         }
     }
 }

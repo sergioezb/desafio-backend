@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Brito.Sergio.Backend.Acl;
 using Brito.Sergio.Backend.Api.Automapper;
+using Brito.Sergio.Backend.Domain.Interfaces.Services;
+using Brito.Sergio.Backend.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +47,7 @@ namespace Brito.Sergio.Backend.Api
 
         private void ConfigureDependencyInjection(IServiceCollection services)
         {
-            services.AddTransient<IInvestimentosAcl, TesouroDiretoAcl>();
+            services.AddTransient<IInvestimentoService, InvestimentoService>();
         }
 
         private void ConfigurarAutoMapper(IServiceCollection services)
