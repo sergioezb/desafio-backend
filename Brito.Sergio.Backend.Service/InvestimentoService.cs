@@ -3,9 +3,7 @@ using Brito.Sergio.Backend.Acl;
 using Brito.Sergio.Backend.Domain;
 using Brito.Sergio.Backend.Domain.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Brito.Sergio.Backend.Service
@@ -29,10 +27,13 @@ namespace Brito.Sergio.Backend.Service
                 var investimentos = await acl.ObterListaInvestimentos();
                 foreach (var investimento in investimentos)
                 {
+                    consolidado.CalcularValorResgate(investimento);
                     consolidado.AdicionarInvestimento(investimento);
                 }
             }
             return consolidado;
         }
+
+  
     }
 }

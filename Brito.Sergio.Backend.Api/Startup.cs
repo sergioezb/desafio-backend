@@ -6,6 +6,7 @@ using AutoMapper;
 using Brito.Sergio.Backend.Acl;
 using Brito.Sergio.Backend.Api.Automapper;
 using Brito.Sergio.Backend.Domain.Interfaces.Services;
+using Brito.Sergio.Backend.Infra;
 using Brito.Sergio.Backend.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,15 +40,25 @@ namespace Brito.Sergio.Backend.Api
         {
             ConfigurarAutoMapper(services);
 
-            ConfigureDependencyInjection(services);
+            ConfigurarRedis(services);
+
+            ConfigurarInjecaoDependencia(services);
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
-        private void ConfigureDependencyInjection(IServiceCollection services)
+        private void ConfigurarRedis(IServiceCollection services)
+        {
+            services.AddDistributedRedisCache(options => {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+            });
+        }
+
+        private void ConfigurarInjecaoDependencia(IServiceCollection services)
         {
             services.AddTransient<IInvestimentoService, InvestimentoService>();
+            services.AddSingleton<IRedisCache, RedisCache>();
         }
 
         private void ConfigurarAutoMapper(IServiceCollection services)

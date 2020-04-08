@@ -1,8 +1,9 @@
-﻿using Brito.Sergio.Backend.Acl;
-using Brito.Sergio.Backend.Domain;
+﻿using Brito.Sergio.Backend.Domain;
 using Brito.Sergio.Backend.Domain.Interfaces.Services;
+using Brito.Sergio.Backend.Infra;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.Extensions.Caching.Distributed;
+using System;
 using System.Threading.Tasks;
 
 namespace Brito.Sergio.Backend.Api.Controllers
@@ -12,19 +13,43 @@ namespace Brito.Sergio.Backend.Api.Controllers
     public class InvestimentoController : ControllerBase
     {
         private readonly IInvestimentoService _investimentoService;
-        public InvestimentoController(IInvestimentoService investimentoService)
+        private readonly IRedisCache _redisCache;
+        private readonly IDistributedCache _cache;
+        public InvestimentoController(IInvestimentoService investimentoService, 
+                                      IRedisCache redisCache, 
+                                      IDistributedCache cache)
         {
             _investimentoService = investimentoService;
+            _redisCache = redisCache;
+            _cache = cache;
         }
 
        [HttpGet]
        [Produces("application/json")]
         public  async Task<ActionResult<InvestimentoConsolidado>> ObterInvestimentos()
         {
-            var investimentoConsolidado =   await _investimentoService.ObterInvestimentoConsolidado();
-            return Ok(investimentoConsolidado);
+            try
+            {
+                InvestimentoConsolidado investimentoConsolidado;
+                var existeCache = await _redisCache.ExistObjectAsync(_cache, "consolidado");
+                if (existeCache)
+                {
+                    investimentoConsolidado =
+                        await _redisCache.GetObjectAsync<InvestimentoConsolidado>(_cache, "consolidado");
+                }
+                else
+                {
+                    investimentoConsolidado = await _investimentoService.ObterInvestimentoConsolidado();
+                    TimeSpan timeout = DateTime.Today.AddDays(1) - DateTime.Now;
+                    await _redisCache.SetObjectAsync(_cache, "consolidado", investimentoConsolidado, timeout);
+                }
+
+                return Ok(investimentoConsolidado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-
     }
 }
