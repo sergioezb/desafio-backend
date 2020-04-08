@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brito.Sergio.Backend.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brito.Sergio.Backend.Service", "Brito.Sergio.Backend.Service\Brito.Sergio.Backend.Service.csproj", "{257A79CA-2618-4E6C-865A-1EF759608DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brito.Sergio.Backend.Infra", "Brito.Sergio.Backend.Infra\Brito.Sergio.Backend.Infra.csproj", "{2E612E94-0295-49C3-BBA9-840C728F8584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brito.Sergio.Backend.Infra", "Brito.Sergio.Backend.Infra\Brito.Sergio.Backend.Infra.csproj", "{2E612E94-0295-49C3-BBA9-840C728F8584}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brito.Sergio.Backend.Test", "Brito.Sergio.Backend.Test\Brito.Sergio.Backend.Test.csproj", "{3470D4D1-2109-47BC-BEBE-7C76A114DCDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2E612E94-0295-49C3-BBA9-840C728F8584}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E612E94-0295-49C3-BBA9-840C728F8584}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E612E94-0295-49C3-BBA9-840C728F8584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3470D4D1-2109-47BC-BEBE-7C76A114DCDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3470D4D1-2109-47BC-BEBE-7C76A114DCDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3470D4D1-2109-47BC-BEBE-7C76A114DCDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3470D4D1-2109-47BC-BEBE-7C76A114DCDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
