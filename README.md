@@ -1,6 +1,4 @@
 # desafio-backend
-Projeto teste backend 
-
 
 ### Acesso aos serviços
 Foi utilizado o pacote Flurl para conexão com os serviços que fornecem dos dados dos investimentos.
